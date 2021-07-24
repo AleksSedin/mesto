@@ -1,0 +1,4 @@
+.profile__info-button {
+    display: flex;
+    flex-direction: row;
+  }

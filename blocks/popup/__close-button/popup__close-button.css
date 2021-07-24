@@ -1,0 +1,28 @@
+.popup__close-button {
+    width:32px;
+    height: 32px;
+    /*grid-column-start: 3;
+    grid-row-start: 1;*/
+    position:absolute;
+    margin-top: -40px;
+    margin-left: 438px;
+    padding: 0;
+    background-color: transparent;
+    background-image: url(../../../images/close-popup-icon.svg);
+    border: none;
+  }
+  
+.popup__close-button:hover {
+  opacity: 60%;
+}
+
+@media screen and (max-width: 645px) {
+
+  .popup__close-button {
+    width:20px;
+    height: 20px;
+    margin-top: -36px;
+    margin-left: 262px;
+    background-image: url(../../../images/close-popup-icon-small.png);
+  }
+}
