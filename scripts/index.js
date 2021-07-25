@@ -3,9 +3,9 @@ const popupCloseButton = document.querySelector('.popup__close-button');
 const popup = document.querySelector('.popup');
 const saveButton = document.querySelector('.popup__container');
 
-const field1 = document.querySelector('.popup__field_title');
+const field1 = document.querySelector('.popup__field_submit_title');
 const profileTitle = document.querySelector('.profile__title');
-const field2 = document.querySelector('.popup__field_subtitle');
+const field2 = document.querySelector('.popup__field_submit_subtitle');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 function showpopup() {
