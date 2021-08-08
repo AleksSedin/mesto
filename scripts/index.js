@@ -100,7 +100,7 @@ const initialCards = [
 const ElementAdd = document.getElementById('elements-add');
 const ElementsContainer = document.querySelector('.elements');
 
-//функция добавления элементов - картинок и названий 
+//функция добавления элементов - картинок и названий
 function AddElement(source, title) {
   const CardElement = ElementAdd.content.firstElementChild.cloneNode(true);
   const CardElementImage = CardElement.querySelector('.element__image');
@@ -130,10 +130,10 @@ for (let i = 0; i < initialCards.length; i += 1) {
 const ImageView = document.querySelector('.element__image');
 ImageView.addEventListener('click', () => {openpopup(popupImageView)});
 
-const newImage = document.querySelector('.image-popup__image');
-const newTitle = document.querySelector('.image-popup__text');
+const newImage = document.querySelector('.popup__image');
+const newTitle = document.querySelector('.popup__text');
 
-//функция добавления картнок и названий в popup просмотра картинок
+//функция добавления картинок и названий в popup просмотра картинок
 function ImageClick(evt) {
   const Image = evt.target.getAttribute('src');
   const Title = evt.target.getAttribute('alt');
