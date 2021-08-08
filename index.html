@@ -26,63 +26,29 @@
       
       <button class="profile__add-button" type="button"></button>
     </section>
-  
+    
     <section class="elements">
-      <div class="element">
-        <img class="element__image" src="./images/element-karachaevsk.jpg" alt="Карачаево-Черкессия">
-        <div class="element__info">
-          <h2 class="element__text">Карачаево-Черкессия</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-
-      <div class="element">
-        <img class="element__image" src="./images/element-elbrus.jpg" alt="Гора Эльбрус">
-        <div class="element__info">
-          <h2 class="element__text">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-
-      <div class="element">
-        <img class="element__image" src="./images/element-dombai.jpg" alt="Домбай">
-        <div class="element__info">
-          <h2 class="element__text">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-
-      <div class="element">
-        <img class="element__image" src="./images/element-elbrus.jpg" alt="Гора Эльбрус">
-        <div class="element__info">
-          <h2 class="element__text">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-
-      <div class="element">
-        <img class="element__image" src="./images/element-dombai.jpg" alt="Домбай">
-        <div class="element__info">
-          <h2 class="element__text">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-
-      <div class="element">
-        <img class="element__image" src="./images/element-karachaevsk.jpg" alt="Карачаевск">
-        <div class="element__info">
-          <h2 class="element__text">Карачаевск</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
+     
     </section>
+    
+    <template id="elements-add">
+      <div class="element">
+        <button class="element__delete-button"></button>
+        <img class="element__image" alt="Картинка">
+        <div class="element__info">
+          <h2 class="element__text"></h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+    </template>
+
   </main>
 
   <footer class="footer">
     <div class="footer__text">&copy; 2020 Mesto Russia</div>
   </footer> 
 
-  <div class="popup">
+  <div class="popup" id="popupEditProfile">
     <form class="popup__container" name="popup-submit">
       <button class="popup__close-button" type="reset"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -91,6 +57,26 @@
       <button class="popup__save-button" type="submit">Сохранить</button>
     </form>
   </div>
+
+  <div class="popup" id="popupAddPlace">
+    <form class="popup__container" name="popup-submit">
+      <button class="popup__close-button" type="reset"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <input class="popup__field popup__field_submit_name" type='text' placeholder="Введите название" value required>
+      <input class="popup__field popup__field_submit_link" type='text' placeholder="Ссылка на картинку" value required>
+      <button class="popup__save-button" type="submit">Создать</button>
+    </form>
+  </div>
+  
+  <div class="popup" id="popupImageView">
+    <div class="image-popup__container">
+      <button class="popup__close-button" type="reset"></button>
+      <img class="image-popup__image"">
+      <p class="image-popup__text"></p>
+    </div>
+  </div>
+
+
 
 <script src="scripts/index.js" defer></script>
 </body>

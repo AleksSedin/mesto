@@ -8,6 +8,7 @@
     background-image: url(../../../images/add-plus.svg);
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
   }
   
 .profile__add-button:hover {
