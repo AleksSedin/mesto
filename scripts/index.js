@@ -1,6 +1,6 @@
-const popupEditProfile = document.getElementById('popupEditProfile');
-const popupAddPlace = document.getElementById('popupAddPlace');
-const popupImageView = document.getElementById('popupImageView');
+const popupEditProfile = document.querySelector('#popupEditProfile');
+const popupAddPlace = document.querySelector('#popupAddPlace');
+const popupImageView = document.querySelector('#popupImageView');
 
 const popupSaveElement = document.querySelector('.popup__save-button');
 
@@ -8,66 +8,104 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const popupCloseButton = document.querySelectorAll('.popup__close-button');
 
+const popups = document.querySelectorAll('.popup');
+
 //Функция открытия любого из трёх popup
-function openpopup(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener("keydown", onEscapeKey);
 }
 
 //Функция закрытия любого из трёх popup
-function closepopup(popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener("keydown", onEscapeKey);
 }
 
 //Закрытие осуществляется по кнопке 'крестик'
-function CloseButtonClick (evt) {
-  closepopup(evt.target.closest(".popup"));
+function closeButtonClick (evt) {
+  closePopup(evt.target.closest(".popup"));
+}
+
+//Закрытие popup кликом вне его границ
+popups.forEach((popup) => {
+  popup.addEventListener('click', closeButtonClick);
+})
+
+const popupContainers =  document.querySelectorAll('.popup__container');
+
+//Ловим клик на popup__container и отменяем его закрытие
+popupContainers.forEach((popupContainer) => {
+  popupContainer.addEventListener('click', (evt) => {
+    evt.stopPropagation();
+  });
+})
+
+const popupImg = document.querySelector('.popup__img');
+
+//Аналогично с popup__img
+popupImg.addEventListener('click', (evt) => {
+  evt.stopPropagation();
+});
+
+//Закрытие popup кнопкой Escape
+function onEscapeKey(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
+  }
 }
 
 //и вещаем функцию на каждую кнопку
 popupCloseButton.forEach((button) => {
-  button.addEventListener("click", CloseButtonClick);
+  button.addEventListener("click", closeButtonClick);
 })
 
 //Открываем popup добавления места по клику на кнопку
-profileAddButton.addEventListener('click', () => {openpopup(popupAddPlace)});
+profileAddButton.addEventListener('click', () => {openPopup(popupAddPlace)});
 
 const saveButton = document.querySelector('.popup__container');
 
-const field1 = document.querySelector('.popup__field_submit_title');
+const profileTitleField = document.querySelector('.popup__field_submit_title');
 const profileTitle = document.querySelector('.profile__title');
-const field2 = document.querySelector('.popup__field_submit_subtitle');
+const profileSubtitleField = document.querySelector('.popup__field_submit_subtitle');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 //создаем функцию редактирования профиля - получаем значения из элементов в поля popup
-function EditButtonClick() {
-  field1.value = profileTitle.textContent;
-  field2.value = profileSubtitle.textContent;
-  openpopup(popupEditProfile);
+function editButtonClick() {
+  profileTitleField.value = profileTitle.textContent;
+  profileSubtitleField.value = profileSubtitle.textContent;
+  openPopup(popupEditProfile);
 }
 
 //создаем функцию сохранения отредактированного профиля
 function saveProfile(evt) {
   evt.preventDefault();
-  profileTitle.textContent = field1.value;
-  profileSubtitle.textContent = field2.value;
+  profileTitle.textContent = profileTitleField.value;
+  profileSubtitle.textContent = profileSubtitleField.value;
   
-  closepopup(popupEditProfile);
+  closePopup(popupEditProfile);
 }
 
-const ElementTitlePopup = document.querySelector('.popup__field_submit_name');
-const ElementUrlPopup = document.querySelector('.popup__field_submit_link');
+const elementTitlePopup = document.querySelector('.popup__field_submit_name');
+const elementUrlPopup = document.querySelector('.popup__field_submit_link');
 
 //функция сохранения новых элементов - названия картинки и ссылки на неё
-function SaveElement(evt) {
+function saveElement(evt) {
   evt.preventDefault();
-  const ElementTitle = ElementTitlePopup.value;
-  const ElementUrl = ElementUrlPopup.value;
-  ElementsContainer.prepend(AddElement(ElementUrl, ElementTitle));
+  const elementTitle = elementTitlePopup.value;
+  const elementUrl = elementUrlPopup.value;
+  elementsContainer.prepend(createCard(elementUrl, elementTitle));
 
-  ElementUrlPopup.value = '';
-  ElementTitlePopup.value = '';
+  elementUrlPopup.value = '';
+  elementTitlePopup.value = '';
+  
+  popupAddPlace.querySelector('.popup__save-button').classList.add('popup__button_type_disabled');
+  popupAddPlace.querySelector('.popup__save-button').setAttribute('disabled', true);
 
-  closepopup(popupAddPlace);
+  closePopup(popupAddPlace);
 }
 
 const initialCards = [
@@ -97,84 +135,63 @@ const initialCards = [
   }
 ]; 
 
-const ElementAdd = document.getElementById('elements-add');
-const ElementsContainer = document.querySelector('.elements');
+const cardAdd = document.getElementById('elements-add');
+const elementsContainer = document.querySelector('.elements');
 
-//функция добавления элементов - картинок и названий 
-function AddElement(source, title) {
-  const CardElement = ElementAdd.content.firstElementChild.cloneNode(true);
-  const CardElementImage = CardElement.querySelector('.element__image');
+//функция добавления элементов - картинок и названий
+function createCard(source, title) {
+  const cardElement = cardAdd.content.firstElementChild.cloneNode(true);
+  const cardElementImage = cardElement.querySelector('.element__image');
 
-  CardElementImage.setAttribute('src', source);
-  CardElementImage.setAttribute('alt', title);
+  cardElementImage.setAttribute('src', source);
+  cardElementImage.setAttribute('alt', title);
   
-  const CardElementTitle = CardElement.querySelector('.element__text');
-  CardElementTitle.textContent = title;
+  const cardElementTitle = cardElement.querySelector('.element__text');
+  cardElementTitle.textContent = title;
 
-  const RemoveButton = CardElement.querySelector('.element__delete-button');
-  const LikeButton = CardElement.querySelector('.element__like');
+  const removeButton = cardElement.querySelector('.element__delete-button');
+  const likeButton = cardElement.querySelector('.element__like');
 
-  CardElementImage.addEventListener('click', ImageClick);
-  RemoveButton.addEventListener('click', RemoveElement);
-  LikeButton.addEventListener('click', SetLike);
+  cardElementImage.addEventListener('click', handleImageClick);
+  removeButton.addEventListener('click', handleRemoveCard);
+  likeButton.addEventListener('click', handleCardLike);
 
-  return CardElement;
+  return cardElement;
 }
 
 //добавление существующих картинок из массива initialCards
 for (let i = 0; i < initialCards.length; i += 1) {
-  ElementsContainer.append(AddElement(initialCards[i].link, initialCards[i].name));
+  elementsContainer.append(createCard(initialCards[i].link, initialCards[i].name));
 }
 
 //открытие popup просмотра картинок
-const ImageView = document.querySelector('.element__image');
-ImageView.addEventListener('click', () => {openpopup(popupImageView)});
+const imageView = document.querySelector('.element__image');
+imageView.addEventListener('click', () => {openpopup(popupImageView)});
 
-const newImage = document.querySelector('.image-popup__image');
-const newTitle = document.querySelector('.image-popup__text');
+const newImage = document.querySelector('.popup__image');
+const newTitle = document.querySelector('.popup__text');
 
-//функция добавления картнок и названий в popup просмотра картинок
-function ImageClick(evt) {
-  const Image = evt.target.getAttribute('src');
-  const Title = evt.target.getAttribute('alt');
-  newImage.setAttribute('src', Image);
-  newImage.setAttribute('alt', Title);
-  newTitle.textContent = Title;
+//функция добавления картинок и названий в popup просмотра картинок
+function handleImageClick(evt) {
+  const image = evt.target.getAttribute('src');
+  const title = evt.target.getAttribute('alt');
+  newImage.setAttribute('src', image);
+  newImage.setAttribute('alt', title);
+  newTitle.textContent = title;
 
-  openpopup(popupImageView);
+  openPopup(popupImageView);
 }
 
-const ElementsImage = document.querySelectorAll('.element__image')
-
-//добавляем листнер на каждую картинку
-ElementsImage.forEach((ElementsImage) => {
-  ElementsImage.addEventListener("click", ImageClick);
-})
-
-const RemoveButtons = document.querySelectorAll('.element__delete-button');
-
 //функция удаления элемента - картинки
-function RemoveElement(evt) {
+function handleRemoveCard(evt) {
   evt.target.closest('.element').remove();
 }
 
-//добавляем листнер на каждую картинку для удаления
-RemoveButtons.forEach((RemoveButtons) => {
-  RemoveButtons.addEventListener("click", RemoveElement);
-})
-
-const LikeButtons = document.querySelectorAll('.element__like');
-
 //функция лайка элемента - картинки
-function SetLike(evt) {
+function handleCardLike(evt) {
   evt.target.classList.toggle('element__like_active');
 }
 
-//добавляем листнер на каждую картинку для лайка
-LikeButtons.forEach((LikeButtons) => {
-  LikeButtons.addEventListener("click", SetLike);
-})
-
-profileEditButton.addEventListener('click', EditButtonClick);
+profileEditButton.addEventListener('click', editButtonClick);
 saveButton.addEventListener('submit', saveProfile);
-popupAddPlace.addEventListener('submit', SaveElement);
+popupAddPlace.addEventListener('submit', saveElement);
