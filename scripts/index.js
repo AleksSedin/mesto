@@ -139,15 +139,9 @@ const cardAdd = document.getElementById('elements-add');
 const elementsContainer = document.querySelector('.elements');
 
 //функция добавления элементов - картинок и названий
-<<<<<<< HEAD
 function createCard(source, title) {
   const cardElement = cardAdd.content.firstElementChild.cloneNode(true);
   const cardElementImage = cardElement.querySelector('.element__image');
-=======
-function AddElement(source, title) {
-  const CardElement = ElementAdd.content.firstElementChild.cloneNode(true);
-  const CardElementImage = CardElement.querySelector('.element__image');
->>>>>>> f2b9956dabf0b111738c5b24b14ac0975bc4cce4
 
   cardElementImage.setAttribute('src', source);
   cardElementImage.setAttribute('alt', title);
@@ -178,21 +172,12 @@ const newImage = document.querySelector('.popup__image');
 const newTitle = document.querySelector('.popup__text');
 
 //функция добавления картинок и названий в popup просмотра картинок
-<<<<<<< HEAD
 function handleImageClick(evt) {
   const image = evt.target.getAttribute('src');
   const title = evt.target.getAttribute('alt');
   newImage.setAttribute('src', image);
   newImage.setAttribute('alt', title);
   newTitle.textContent = title;
-=======
-function ImageClick(evt) {
-  const Image = evt.target.getAttribute('src');
-  const Title = evt.target.getAttribute('alt');
-  newImage.setAttribute('src', Image);
-  newImage.setAttribute('alt', Title);
-  newTitle.textContent = Title;
->>>>>>> f2b9956dabf0b111738c5b24b14ac0975bc4cce4
 
   openPopup(popupImageView);
 }
