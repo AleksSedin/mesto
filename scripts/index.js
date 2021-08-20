@@ -66,8 +66,6 @@ popupCloseButton.forEach((button) => {
 //Открываем popup добавления места по клику на кнопку
 profileAddButton.addEventListener('click', () => {openPopup(popupAddPlace)});
 
-const saveButton = document.querySelector('.popup__container');
-
 const profileTitleField = document.querySelector('.popup__field_submit_title');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitleField = document.querySelector('.popup__field_submit_subtitle');
@@ -102,7 +100,7 @@ function saveElement(evt) {
   elementUrlPopup.value = '';
   elementTitlePopup.value = '';
   
-  popupAddPlace.querySelector('.popup__save-button').classList.add('popup__button_type_disabled');
+  popupAddPlace.querySelector('.popup__save-button').classList.add('popup__save-button_disabled');
   popupAddPlace.querySelector('.popup__save-button').setAttribute('disabled', true);
 
   closePopup(popupAddPlace);
@@ -164,10 +162,6 @@ for (let i = 0; i < initialCards.length; i += 1) {
   elementsContainer.append(createCard(initialCards[i].link, initialCards[i].name));
 }
 
-//открытие popup просмотра картинок
-const imageView = document.querySelector('.element__image');
-imageView.addEventListener('click', () => {openpopup(popupImageView)});
-
 const newImage = document.querySelector('.popup__image');
 const newTitle = document.querySelector('.popup__text');
 
@@ -193,5 +187,5 @@ function handleCardLike(evt) {
 }
 
 profileEditButton.addEventListener('click', editButtonClick);
-saveButton.addEventListener('submit', saveProfile);
+popupEditProfile.addEventListener('submit', saveProfile);
 popupAddPlace.addEventListener('submit', saveElement);
