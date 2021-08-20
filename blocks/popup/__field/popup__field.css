@@ -1,0 +1,30 @@
+.popup__field {
+  padding: 0;
+  width: 358px;
+  padding-bottom: 12px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.2);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 17px;
+
+  margin: 54px 36px 0 36px;
+}
+
+.popup__field:last-of-type {
+  margin: 29px 36px 0 36px;
+}
+
+
+@media screen and (max-width: 645px) {
+  
+  .popup__field {
+    width: 238px;
+    margin: 75px 22px 0 22px;
+  }
+
+  .popup__field:last-of-type {
+    margin: 30px 22px 0 22px;
+  }
+}

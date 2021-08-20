@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Места России</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body class="page">
+
+  <header class="header">
+    <a class="header__link" href="#"><img class="header__logo" src="./images/header-logo.svg" alt="Логотип"></a>
+  </header>
+
+  <main class="content">
+    <section class="profile">
+      <img class="profile__image" src="./images/profile-kusto.jpg" alt="Жак-Ив Кусто">
+      <div class="profile__info">
+        <div class="profile__info-button">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button" type="button"></button>
+        </div>
+        <p class="profile__subtitle">Исследователь океана</p>
+      </div>
+      
+      <button class="profile__add-button" type="button"></button>
+    </section>
+    
+    <section class="elements">
+     
+    </section>
+    
+    <template id="elements-add">
+      <div class="element">
+        <button class="element__delete-button"></button>
+        <img class="element__image" alt="Картинка">
+        <div class="element__info">
+          <h2 class="element__text"></h2>
+          <button class="element__like" type="button"></button>
+        </div>
+      </div>
+    </template>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__text">&copy; 2020 Mesto Russia</div>
+  </footer> 
+
+  <div class="popup" id="popupEditProfile">
+    <form class="popup__container" name="popup-submit" novalidate>
+      <button class="popup__close-button" type="reset"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input class="popup__field popup__field_submit_title" type='text' placeholder="Введите имя" value required maxlength="40" minlength="2" id="popup-title">
+      <span class="popup__error-message popup-title-error"></span>
+      <input class="popup__field popup__field_submit_subtitle" type='text' placeholder="Введите звание" value required maxlength="200" minlength="2" id="popup-subtitle">
+      <span class="popup__error-message popup-subtitle-error"></span>
+      <button class="popup__save-button" type="submit">Сохранить</button>
+    </form>
+  </div>
+
+  <div class="popup" id="popupAddPlace">
+    <form class="popup__container" name="popup-card" novalidate>
+      <button class="popup__close-button" type="reset"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <input class="popup__field popup__field_submit_name" type='text' placeholder="Название" value required maxlength="30" minlength="2" id="popup-name">
+      <span class="popup__error-message popup-name-error"></span>
+      <input class="popup__field popup__field_submit_link" placeholder="Ссылка на картинку" value required type="url" id="popup-link">
+      <span class="popup__error-message popup-link-error"></span>
+      <button class="popup__save-button popup__save-button_disabled" type="submit" disabled="true">Создать</button>
+    </form>
+  </div>
+  
+  <div class="popup" id="popupImageView">
+    <form class="popup__img" name="popup-img" novalidate>
+      <button class="popup__close-button" type="reset"></button>
+      <img class="popup__image">
+      <p class="popup__text"></p>
+    </form>
+  </div>
+
+<script src="scripts/index.js" defer></script>
+<script src="scripts/validate.js" defer></script>
+</body>
+</html>

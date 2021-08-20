@@ -1,0 +1,17 @@
+.popup__field-error-message {
+    display: flex;
+    color: #FF0000;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: left;
+    margin: 0 36px 8px;
+}
+
+@media screen and (max-width: 645px) {
+
+  .popup__field-error-message {
+    font-size: 10px;
+    line-height: 13px;
+    margin: 5px 22px 8px 22px;
+  }
+}
