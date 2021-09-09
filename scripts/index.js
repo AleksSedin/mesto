@@ -1,3 +1,7 @@
+import { Card } from "./Card.js";
+import { initialCards } from "./initial-cards.js";
+import { FormValidator } from "./FormValidator.js";
+
 const popupEditProfile = document.querySelector('#popupEditProfile');
 const popupAddPlace = document.querySelector('#popupAddPlace');
 const popupImageView = document.querySelector('#popupImageView');
@@ -9,6 +13,15 @@ const profileAddButton = document.querySelector('.profile__add-button');
 const popupCloseButton = document.querySelectorAll('.popup__close-button');
 
 const popups = document.querySelectorAll('.popup');
+
+const selectors = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__field-error',
+  errorClass: 'popup__field-error-message'
+}
 
 //Функция открытия любого из трёх popup
 function openPopup(popup) {
@@ -106,55 +119,10 @@ function saveElement(evt) {
   closePopup(popupAddPlace);
 }
 
-const initialCards = [
-  {
-    name: 'Северное Сияние',
-    link: 'https://images.unsplash.com/photo-1507272931001-fc06c17e4f43?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bm9yd2F5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Солнечное затмение',
-    link: 'https://images.unsplash.com/photo-1554791756-02aebb441d00?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHN1biUyMGVjbGlwc2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Цунами',
-    link: 'https://images.unsplash.com/photo-1600637297283-619282401318?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzJ8fHRzdW5hbWl8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Торнадо',
-    link: 'https://images.unsplash.com/photo-1612200167265-a68d1519332f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8dG9ybmFkb3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Дождь',
-    link: 'https://images.unsplash.com/photo-1503435824048-a799a3a84bf7?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cmFpbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Ночь',
-    link: 'https://images.unsplash.com/photo-1507400492013-162706c8c05e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bmlnaHR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-  }
-]; 
-
-const cardAdd = document.getElementById('elements-add');
 const elementsContainer = document.querySelector('.elements');
 
-//функция добавления элементов - картинок и названий
-function createCard(source, title) {
-  const cardElement = cardAdd.content.firstElementChild.cloneNode(true);
-  const cardElementImage = cardElement.querySelector('.element__image');
-
-  cardElementImage.setAttribute('src', source);
-  cardElementImage.setAttribute('alt', title);
-  
-  const cardElementTitle = cardElement.querySelector('.element__text');
-  cardElementTitle.textContent = title;
-
-  const removeButton = cardElement.querySelector('.element__delete-button');
-  const likeButton = cardElement.querySelector('.element__like');
-
-  cardElementImage.addEventListener('click', handleImageClick);
-  removeButton.addEventListener('click', handleRemoveCard);
-  likeButton.addEventListener('click', handleCardLike);
-
-  return cardElement;
+function createCard(link, title) {
+  return (new Card(link, title, '#elements-add')).doCard();
 }
 
 //добавление существующих картинок из массива initialCards
@@ -176,16 +144,11 @@ function handleImageClick(evt) {
   openPopup(popupImageView);
 }
 
-//функция удаления элемента - картинки
-function handleRemoveCard(evt) {
-  evt.target.closest('.element').remove();
-}
-
-//функция лайка элемента - картинки
-function handleCardLike(evt) {
-  evt.target.classList.toggle('element__like_active');
-}
-
 profileEditButton.addEventListener('click', editButtonClick);
 popupEditProfile.addEventListener('submit', saveProfile);
 popupAddPlace.addEventListener('submit', saveElement);
+
+const formValidator = new FormValidator(selectors);
+formValidator.enableValidation();
+
+export { handleImageClick };
