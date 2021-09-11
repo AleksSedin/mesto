@@ -6,11 +6,9 @@ const popupEditProfile = document.querySelector('#popupEditProfile');
 const popupAddPlace = document.querySelector('#popupAddPlace');
 const popupImageView = document.querySelector('#popupImageView');
 
-const popupSaveElement = document.querySelector('.popup__save-button');
-
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
-const popupCloseButton = document.querySelectorAll('.popup__close-button');
+const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 
 const popups = document.querySelectorAll('.popup');
 
@@ -27,6 +25,7 @@ const selectors = {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener("keydown", onEscapeKey);
+  resetForms();
 }
 
 //Функция закрытия любого из трёх popup
@@ -72,7 +71,7 @@ function onEscapeKey(evt) {
 }
 
 //и вещаем функцию на каждую кнопку
-popupCloseButton.forEach((button) => {
+popupCloseButtons.forEach((button) => {
   button.addEventListener("click", closeButtonClick);
 })
 
@@ -113,16 +112,13 @@ function saveElement(evt) {
   elementUrlPopup.value = '';
   elementTitlePopup.value = '';
   
-  popupAddPlace.querySelector('.popup__save-button').classList.add('popup__save-button_disabled');
-  popupAddPlace.querySelector('.popup__save-button').setAttribute('disabled', true);
-
   closePopup(popupAddPlace);
 }
 
 const elementsContainer = document.querySelector('.elements');
 
 function createCard(link, title) {
-  return (new Card(link, title, '#elements-add')).doCard();
+  return (new Card(link, title, '#elements-add')).generateCard();
 }
 
 //добавление существующих картинок из массива initialCards
@@ -148,7 +144,23 @@ profileEditButton.addEventListener('click', editButtonClick);
 popupEditProfile.addEventListener('submit', saveProfile);
 popupAddPlace.addEventListener('submit', saveElement);
 
-const formValidator = new FormValidator(selectors);
-formValidator.enableValidation();
+function enableValidationForms() {
+  const formList = document.querySelectorAll(selectors.formSelector);
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(selectors, formElement);
+    formValidator.enableValidation();
+    
+  })
+}
+
+function resetForms() {
+  const formList = document.querySelectorAll(selectors.formSelector);
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(selectors, formElement);
+    formValidator.resetValidation();
+  })
+}
+
+enableValidationForms();
 
 export { handleImageClick };

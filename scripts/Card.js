@@ -28,7 +28,7 @@ export class Card {
         this.element.querySelector('.element__image').addEventListener('click', handleImageClick);
     }
 
-    doCard() {
+    generateCard() {
         this.element = this._getTemplate();
         
         const cardElementImage = this.element.querySelector('.element__image');
