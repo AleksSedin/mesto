@@ -25,7 +25,15 @@ const selectors = {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener("keydown", onEscapeKey);
-  resetForms();
+  
+  if (popup.id === 'popupAddPlace') {
+    formAddPlaceValidator.resetValidation();
+    document.getElementById('popupAddForm').reset();
+  } else {
+    if (popup.id === 'popupEditProfile') {
+      formEditProfileValidator.resetValidation();
+    }
+  }
 }
 
 //Функция закрытия любого из трёх popup
@@ -144,23 +152,12 @@ profileEditButton.addEventListener('click', editButtonClick);
 popupEditProfile.addEventListener('submit', saveProfile);
 popupAddPlace.addEventListener('submit', saveElement);
 
-function enableValidationForms() {
-  const formList = document.querySelectorAll(selectors.formSelector);
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(selectors, formElement);
-    formValidator.enableValidation();
-    
-  })
-}
+const formAddPlace = document.getElementById('popupAddPlace');
+const formAddPlaceValidator = new FormValidator(selectors, formAddPlace);
+formAddPlaceValidator.enableValidation();
 
-function resetForms() {
-  const formList = document.querySelectorAll(selectors.formSelector);
-  formList.forEach((formElement) => {
-    const formValidator = new FormValidator(selectors, formElement);
-    formValidator.resetValidation();
-  })
-}
-
-enableValidationForms();
+const formEditProfile = document.getElementById('popupEditProfile');
+const formEditProfileValidator = new FormValidator(selectors, formEditProfile);
+formEditProfileValidator.enableValidation();
 
 export { handleImageClick };

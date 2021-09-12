@@ -15,7 +15,7 @@ export class FormValidator {
         
     //Функция отлавливания ошибки ввода
     _showInputError(inputElement, errorMessage){
-        const errorElement = document.querySelector(`.${inputElement.id}-error`);
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.add(this._selectors.inputErrorClass);
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._selectors.errorClass);
@@ -23,7 +23,7 @@ export class FormValidator {
         
     //Функция закрытия сообщения об ошибке
     _hideInputError(inputElement){
-        const errorElement = document.querySelector(`.${inputElement.id}-error`);
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.remove(this._selectors.inputErrorClass);
         errorElement.classList.remove(this._selectors.errorClass);
         errorElement.textContent = '';
@@ -62,7 +62,7 @@ export class FormValidator {
         this._setEventListeners();
     };
 
-    //Функция сброса ошибок и значений полей ввода
+    //Функция сброса ошибок
     resetValidation() {
       const inputList = Array.from(this._formElement.querySelectorAll(this._selectors.inputSelector));
       this._toggleButtonState(inputList);
@@ -70,9 +70,5 @@ export class FormValidator {
       inputList.forEach((inputElement) => {
         this._hideInputError(inputElement);
       });
-      
-      if (this._formElement.name === 'popup-card') {
-        this._formElement.reset();
-      }
     }
 }
