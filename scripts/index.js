@@ -25,15 +25,6 @@ const selectors = {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener("keydown", onEscapeKey);
-  
-  if (popup.id === 'popupAddPlace') {
-    formAddPlaceValidator.resetValidation();
-    document.getElementById('popupAddForm').reset();
-  } else {
-    if (popup.id === 'popupEditProfile') {
-      formEditProfileValidator.resetValidation();
-    }
-  }
 }
 
 //Функция закрытия любого из трёх popup
@@ -84,7 +75,11 @@ popupCloseButtons.forEach((button) => {
 })
 
 //Открываем popup добавления места по клику на кнопку
-profileAddButton.addEventListener('click', () => {openPopup(popupAddPlace)});
+profileAddButton.addEventListener('click', () => {
+  openPopup(popupAddPlace);
+  formAddPlaceValidator.resetValidation();
+  document.getElementById('popupAddForm').reset();
+});
 
 const profileTitleField = document.querySelector('.popup__field_submit_title');
 const profileTitle = document.querySelector('.profile__title');
@@ -96,6 +91,7 @@ function editButtonClick() {
   profileTitleField.value = profileTitle.textContent;
   profileSubtitleField.value = profileSubtitle.textContent;
   openPopup(popupEditProfile);
+  formEditProfileValidator.resetValidation();
 }
 
 //создаем функцию сохранения отредактированного профиля
